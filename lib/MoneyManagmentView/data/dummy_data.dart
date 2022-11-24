@@ -1,0 +1,25 @@
+import '../models/CurrencyModel.dart';
+
+List<CurrencyModel> currency = [
+  CurrencyModel('دولار الولايات المتحدة', "USD", "\$"),
+  CurrencyModel('اليورو', "EUR", '€'),
+  CurrencyModel('الجنيه البريطاني', "GBP", "£"),
+  CurrencyModel('الين الياباني', "JPY", '¥'),
+  CurrencyModel('فرنك سويسري', "CHF", '₣'),
+  CurrencyModel('Bitcoin', "BTC", 'Ƀ'),
+  CurrencyModel('Ethereum', "ETH", 'Ξ'),
+  CurrencyModel('أوربا فلورين', "AWG", 'ƒ'),
+  CurrencyModel('أرياري مدغشقري', "MGA", 'Ar'),
+  CurrencyModel('أفغاني', "AFN", '؋'),
+  CurrencyModel('أوقية موريتانية', "MRU", 'UM'),
+  CurrencyModel('أيسكودو جزر الرأس الأخضر', "CVE", 'Esc'),
+  CurrencyModel('البر الإثيوبي', "ETB", 'Br'),
+  CurrencyModel('البيزو الدومينيكي', "DOP", '\$'),
+  CurrencyModel('التنج الكازاخستاني', "KZT", '₸'),
+  CurrencyModel('الجنيه المصري', "EGP", '£'),
+  CurrencyModel('الجورجية لاري', "GEL", '₾'),
+  CurrencyModel('الدرهم الإماراتي', "AED", 'د.إ'),
+  CurrencyModel('الدرهم المغربي', "MAD", 'د.م.'),
+  CurrencyModel('الدولار الجامايكي', "JMD", '\$'),
+  CurrencyModel('الدولار النيوزلندي', "NZD", '\$'),
+];
