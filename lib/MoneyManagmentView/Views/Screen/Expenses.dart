@@ -23,10 +23,14 @@ class ExpensesScreen extends StatefulWidget {
 class _ExpensesScreenState extends State<ExpensesScreen>
     with SingleTickerProviderStateMixin {
   TextEditingController controller = TextEditingController();
-
+  int myTabIndex = 0;
   initalizeTabController() {
     ExpensesScreen.tabController = TabController(length: 2, vsync: this);
     ExpensesScreen.tabController.index = 1;
+    ExpensesScreen.tabController.addListener(() {
+      Provider.of<MoneyProvider>(context, listen: false)
+          .changeMyTabIndex(ExpensesScreen.tabController.index);
+    });
   }
 
   void initState() {
@@ -74,8 +78,13 @@ class _ExpensesScreenState extends State<ExpensesScreen>
                                               .account_ID)
                                       .length,
                               itemBuilder: (context, index) {
-                               return (() {
-                                  if (ExpensesScreen.tabController.index == 1) {
+                                return (() {
+                                  // log(ExpensesScreen.tabController.index
+                                  //   .toString());
+                                  if (Provider.of<MoneyProvider>(context,
+                                              listen: false)
+                                          .myTabIndex ==
+                                      1) {
                                     return ViewData(
                                         'expenses',
                                         (provider.expenses
@@ -101,11 +110,9 @@ class _ExpensesScreenState extends State<ExpensesScreen>
                                             .toMap());
                                   }
                                 }());
-                              
                               }))
                     ])
-                  : SizedBox(child: Text(''))
-                  ));
+                  : SizedBox(child: Text(''))));
     });
   }
 }
@@ -123,14 +130,15 @@ buildProfileDrawer() {
           currentAccountPicture: CircleAvatar(
             backgroundImage: AssetImage('image/AvatarProfilePic.png'),
           ),
-          accountEmail: Text('Reem@gmail.com', textAlign:TextAlign.end), accountName: Text('Reem'),
+          accountEmail: Text('Reem@gmail.com', textAlign: TextAlign.end),
+          accountName: Text('Reem'),
           // accountName: Text('Reem'),
         ),
         Expanded(
             child: ListTile(
-                   title: Text('جدول',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          title: Text('جدول', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.list),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -139,10 +147,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-        //  title: Text('حسابات'),
-            title: Text('حسابات',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          //  title: Text('حسابات'),
+          title: Text('حسابات', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.done),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -151,10 +159,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-         // title: Text('الرسوم البيانية'),
-                             title: Text('الرسوم البيانية',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          // title: Text('الرسوم البيانية'),
+          title: Text('الرسوم البيانية', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -163,11 +171,9 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-            
-            
-          title: Text('الفئات',textAlign: TextAlign.end),
-            iconColor: Colors.white,
-  textColor:Colors.white,
+          title: Text('الفئات', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -176,10 +182,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-         // title: Text('المدفوعات الدورية'),
-                             title: Text('المدفوعات الدورية',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          // title: Text('المدفوعات الدورية'),
+          title: Text('المدفوعات الدورية', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -188,10 +194,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-        ///  title: Text('تذكير'),
-                             title: Text('تذكير',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          ///  title: Text('تذكير'),
+          title: Text('تذكير', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -200,10 +206,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-         // title: Text('عملة'),
-                             title: Text('عملة',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          // title: Text('عملة'),
+          title: Text('عملة', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -212,10 +218,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-         // title: Text('الإعدادات'),
-                             title: Text('الإعدادات',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          // title: Text('الإعدادات'),
+          title: Text('الإعدادات', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -224,10 +230,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-         // title: Text('شارك مع الأصدقاء'),
-                             title: Text('شارك مع الأصدقاء',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          // title: Text('شارك مع الأصدقاء'),
+          title: Text('شارك مع الأصدقاء', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -236,10 +242,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-        //  title: Text('قيم التطبيق'),
-                             title: Text('قيم التطبيق',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
+          //  title: Text('قيم التطبيق'),
+          title: Text('قيم التطبيق', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -248,10 +254,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-                                 title: Text('تواصل مع فريق الدعم',textAlign: TextAlign.end),
-           iconColor: Colors.white,
- textColor:Colors.white,
-        //  title: Text('تواصل مع فريق الدعم'),
+          title: Text('تواصل مع فريق الدعم', textAlign: TextAlign.end),
+          iconColor: Colors.white,
+          textColor: Colors.white,
+          //  title: Text('تواصل مع فريق الدعم'),
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -261,7 +267,5 @@ buildProfileDrawer() {
       ],
     ),
   );
-  showList(){
-
-  }
+  showList() {}
 }

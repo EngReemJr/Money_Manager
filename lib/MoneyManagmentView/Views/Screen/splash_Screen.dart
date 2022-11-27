@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:helloworld/MoneyManagmentView/Views/Screen/Expenses.dart';
+import 'package:helloworld/MoneyManagmentView/providers/money_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../data_reposeitory/sharedPrefernce.dart';
 import 'StartScreen.dart';
@@ -19,10 +21,10 @@ class _SplashscreenState extends State<Splashscreen> {
   _SplashscreenState() {
     makeDelay();
   }
-  navigateUser() {
+  navigateUser() async{
+  //  Provider.of<MoneyProvider>(context, listen: false).getAllBalances();
     bool isFirstTime = FileHelper.getFirstTime();
-    //if (provider.allBalances.length ==0)
-    // FileHelper.setFirstTime();
+  
     if (isFirstTime) {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {

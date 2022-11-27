@@ -49,15 +49,16 @@ class MoneyProvider extends ChangeNotifier {
     ExpenseColor[index] = {'r': red, 'g': green, 'b': blue};
     notifyListeners();
   }
-   changeIncomeBackColor(int r, int g, int b, int index) {
-   IncomeColor = List<Map<String, int>>.filled(
-       Incomechoices.length, {'r': 255, 'g': 255, 'b': 255});
-   red = r;
-   green = g;
-   blue = b;
-   IncomeColor[index] = {'r': red, 'g': green, 'b': blue};
-   notifyListeners();
- }
+
+  changeIncomeBackColor(int r, int g, int b, int index) {
+    IncomeColor = List<Map<String, int>>.filled(
+        Incomechoices.length, {'r': 255, 'g': 255, 'b': 255});
+    red = r;
+    green = g;
+    blue = b;
+    IncomeColor[index] = {'r': red, 'g': green, 'b': blue};
+    notifyListeners();
+  }
 
   setBackColor() {
     ExpenseColor = List<Map<String, int>>.filled(
@@ -74,6 +75,15 @@ class MoneyProvider extends ChangeNotifier {
   getAllBalances() async {
     balances = await DbHelper.dbHelper.getAllRows('balance');
     this.selectedbalance = balances.length - 1;
+    notifyListeners();
+    return balances;
+  }
+
+  int myTabIndex = 1;
+  changeMyTabIndex(int index) {
+  
+      myTabIndex = index;
+ 
     notifyListeners();
   }
 
@@ -159,14 +169,10 @@ class MoneyProvider extends ChangeNotifier {
           '',
           e.income_amount,
           Color.fromARGB(
-              
               255,
               Incomechoices[e.categoery].colorsValues['r']!,
-              
-               Incomechoices[e.categoery].colorsValues['g']!,
-              
-               Incomechoices[e.categoery].colorsValues['b']!
-              ));
+              Incomechoices[e.categoery].colorsValues['g']!,
+              Incomechoices[e.categoery].colorsValues['b']!));
     }).toList();
 
     // notifyListeners();

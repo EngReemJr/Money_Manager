@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/dummy_data.dart';
+import '../../data_reposeitory/sharedPrefernce.dart';
 import '../../models/balance.dart';
 import '../../providers/money_provider.dart';
 
@@ -106,7 +107,6 @@ class AccountScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     primary:
                         Color.fromARGB(255, 253, 194, 42), // Background color
-                    // Text Color (Foreground color)
                   ),
                   onPressed: () {
                     provider.insertNewBalance(BalanceModel(
@@ -115,6 +115,7 @@ class AccountScreen extends StatelessWidget {
                     provider.getAllBalances();
                    // log(provider.balances.length.toString());
                    // log(provider.selectedbalance.toString());
+FileHelper.setFirstTime();
                     Navigator.of(context)
                         .pushReplacementNamed('ExpensesScreen');
                   },

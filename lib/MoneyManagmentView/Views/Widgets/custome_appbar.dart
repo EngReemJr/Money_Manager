@@ -20,11 +20,14 @@ class customAppbar extends StatefulWidget with PreferredSizeWidget {
 class _customAppbarState extends State<customAppbar>
     with SingleTickerProviderStateMixin
     implements PreferredSizeWidget {
+ 
+
+ 
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Consumer<MoneyProvider>(builder: (context, provider, x) {
-      provider.getAllBalances();
       return Container(
           height: 1000.h,
           child: Stack(children: [
@@ -44,7 +47,6 @@ class _customAppbarState extends State<customAppbar>
                       Expanded(
                           child: Center(
                         child: Row(
-                          //  crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -52,28 +54,31 @@ class _customAppbarState extends State<customAppbar>
                               color: Colors.white,
                             ),
                             Text(
-                                provider.balances.isNotEmpty
-                                    ? 'الإجمالي\n' +
-                                        provider.balances
+                                 provider.balances.isNotEmpty
+                                 ?
+                                'الإجمالي\n' +
+                                    provider.balances
+                                        .elementAt(provider.selectedbalance!)
+                                        .total!
+                                        .toString() +
+                                    currency[provider.balances
                                             .elementAt(
-                                                provider.selectedbalance!)
-                                            .total!
-                                            .toString() +
-                                        currency[provider.balances
-                                                .elementAt(
-                                                    provider.selectedbalance!)!
-                                                .currency!]
-                                            .symbol
-                                    : 'الإجمالي\n' +
-                                        provider.balances
-                                            .elementAt(0)
-                                            .total!
-                                            .toString() +
-                                        currency[provider.balances
-                                                .elementAt(
-                                                    provider.selectedbalance!)!
-                                                .currency!]
-                                            .symbol,
+                                                provider.selectedbalance!)!
+                                            .currency!]
+                                        .symbol
+                                :
+                                 'الإجمالي\n' 
+                                 //+
+                                //    provider.balances
+                                //     .elementAt(0)
+                                //    .total!
+                                //    .toString() +
+                                // currency[provider.balances
+                                //  .elementAt(
+                                //   provider.selectedbalance!)!
+                                // .currency!]
+                                // .symbol
+                                ,
                                 style: TextStyle(
                                   fontSize: 24,
                                   color: Colors.white,
@@ -176,7 +181,7 @@ class _customAppbarState extends State<customAppbar>
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size(double.infinity, 831);
+  Size get preferredSize => Size(double.infinity, 1500.h);
 
   @override
   String toStringDeep(

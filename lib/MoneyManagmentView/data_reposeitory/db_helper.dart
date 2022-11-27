@@ -28,6 +28,11 @@ class DbHelper {
             account_ID INTEGER PRIMARY KEY AUTOINCREMENT, 
             total Double, 
             currency INTEGER);''');
+      //  db.execute('''
+//INSERT INTO balance
+//VALUES (1,0.0,0);
+
+//''//');
         db.execute('''
             Create Table expense (
 expense_ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,7 +61,7 @@ account_ID INTEGER references balance
 
   Future<int> insertNewRow(dynamic dataModel, String tableName) async {
     int i = await database.insert(tableName, dataModel.toMap());
-  
+
     return i;
   }
 

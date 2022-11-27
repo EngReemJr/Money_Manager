@@ -148,8 +148,37 @@ class _ExpensesOrIncomeState extends State<ExpensesOrIncome>
                         style: TextStyle(color: Colors.black, fontSize: 28)),
                   ),
                 )),
-            body: Container(height: 418.h, child: ChartApp(title!)),
-          ));
+            body: Column(children: [
+              Expanded(child: 
+           TabBarView(
+     controller: MytabController,
+     children: [
+      Row(),
+Row(children: [
+  Expanded(child: SizedBox()),
+  Center(child:Text(DateTime.now().year!.toString() 
+    
+    )),
+    Expanded(child: SizedBox()),IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))],),
+Row(children: [Expanded(child: SizedBox()),
+  Center(child: Text(DateTime.now().month!.toString() 
+    
+)),
+    Expanded(child: SizedBox()),IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))],),
+Row(children: [Expanded(child: SizedBox()),
+  Center(child:Text(DateTime.now().add(const Duration(days: 7)).month!.toString() +
+     '/' +
+    (DateTime.now().add(const Duration(days: 7)).day).toString()+'-'+DateTime.now().month!.toString()+'/'+DateTime.now().day!.toString())),
+    Expanded(child: SizedBox()),IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))],),
+Row(children: [Expanded(child: SizedBox()),
+  Center(child: Text(DateTime.now().month!.toString() +
+     '/' +
+    DateTime.now().day!.toString()+'اليوم,')),
+    Expanded(child: SizedBox()),IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))],)
+ ])),
+              Container(height: 418.h, child: ChartApp(title!))
+      // , Container(height:500.h,color:Colors.red) 
+        ]) ));
     });
   }
 }
