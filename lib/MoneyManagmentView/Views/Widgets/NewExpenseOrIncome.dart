@@ -460,7 +460,8 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
                                           .elementAt(provider.selectedbalance!)!
                                           .account_ID));
                                 }
-                                log(category_ID.toString());
+                                // log(category_ID.toString());
+                                provider.getAllIncomes();
                                 provider.setBackColor();
                                 Navigator.of(context)
                                     .pushReplacementNamed('ExpensesScreen');

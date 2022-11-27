@@ -97,6 +97,9 @@ class _ExpensesScreenState extends State<ExpensesScreen>
                                                 .toList())[index]
                                             .toMap());
                                   } else {
+                                    log(provider.incomes.length.toString()+' list length');
+                                   log(provider.selectedbalance.toString()+' selected balance');
+
                                     return ViewData(
                                         'incomes',
                                         (provider.incomes

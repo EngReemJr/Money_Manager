@@ -63,6 +63,8 @@ class MoneyProvider extends ChangeNotifier {
   setBackColor() {
     ExpenseColor = List<Map<String, int>>.filled(
         Expensechoices.length, {'r': 255, 'g': 255, 'b': 255});
+         IncomeColor = List<Map<String, int>>.filled(
+     Incomechoices.length, {'r': 255, 'g': 255, 'b': 255});
     notifyListeners();
   }
 
@@ -188,7 +190,7 @@ class MoneyProvider extends ChangeNotifier {
     getAllBalances();
     getIncomeChart();
     setSelectedBalance(balances.length - 1);
-    log(incomeModel.categoery.toString());
+    
   }
 
   insertNewExpense(ExpenseModel expenseModel) async {
