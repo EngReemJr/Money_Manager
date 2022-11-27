@@ -12,10 +12,12 @@ import '../../data/Categories.dart';
 import '../../data/dummy_data.dart';
 import '../../models/CategoriesChoice.dart';
 import '../../models/expense.dart';
+import '../../models/income.dart';
 import '../../models/screenArgument.dart';
 import '../Screen/CategoryScreen.dart';
 import '../Screen/calculater.dart';
 import 'SelectCategory.dart';
+import 'app_router.dart';
 
 class NewExpenseOrIncome extends StatefulWidget {
   late String? type;
@@ -30,7 +32,7 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
   TextEditingController controller1 = TextEditingController();
   TextEditingController controller2 = TextEditingController();
   int lettersCounter = 0;
-  late int category_ID;
+  int category_ID = 0;
   var selectedDate;
   late DateTime today;
   void initState() {
@@ -57,9 +59,10 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    if(args.title=='Selected category'){
-    category_ID = args.message;
+    if (args.title == 'Selected category') {
+      category_ID = args.message;
     }
     return Consumer<MoneyProvider>(builder: (context, provider, x) {
       return SingleChildScrollView(
@@ -99,30 +102,32 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
                           fontSize: 32.0)),
                   Expanded(
                       child: Form(
+                          key: _formKey,
                           child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    controller: controller1,
-                    validator: (value) {
-                      if (value == null) {
-                        // controller.text = '0';
-                        return 'أدخل مبلغ المعاملة';
-                      }
-                    },
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Noto Naskh Arabic",
-                        fontSize: 28.0),
-                    decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 3, color: Color.fromARGB(255, 50, 136, 99)),
-                      ),
-                    ),
-                  ))),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            controller: controller1,
+                            validator: (value) {
+                              if (value == null) {
+                                // controller.text = '0';
+                                return 'أدخل مبلغ المعاملة';
+                              }
+                            },
+                            textAlign: TextAlign.center,
+                            style: new TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Noto Naskh Arabic",
+                                fontSize: 28.0),
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 3,
+                                    color: Color.fromARGB(255, 50, 136, 99)),
+                              ),
+                            ),
+                          ))),
                   SizedBox(width: 176.w),
                 ])),
                 SizedBox(height: 63.h),
@@ -222,11 +227,9 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
                                               BorderRadius.circular(25),
                                           color: Color.fromARGB(
                                               255,
-                                              provider.ExpenseColor[index]
-                                                  ['r']!,
-                                              provider.ExpenseColor[index]
-                                                  ['g']!,
-                                              provider.ExpenseColor[index]
+                                              provider.IncomeColor[index]['r']!,
+                                              provider.IncomeColor[index]['g']!,
+                                              provider.IncomeColor[index]
                                                   ['b']!)),
                                       child: Ink(
                                           child: InkWell(
@@ -258,19 +261,29 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
                                               BorderRadius.circular(25),
                                           color: Color.fromARGB(
                                               255,
-                                              provider.ExpenseColor[index]
-                                                  ['r']!,
-                                              provider.ExpenseColor[index]
-                                                  ['g']!,
-                                              provider.ExpenseColor[index]
+                                              provider.IncomeColor[index]['r']!,
+                                              provider.IncomeColor[index]['g']!,
+                                              provider.IncomeColor[index]
                                                   ['b']!)),
                                       child: Ink(
                                           child: InkWell(
+                                              onTap: () {
+                                                category_ID = index;
+                                                provider.changeIncomeBackColor(
+                                                    Incomechoices[index]
+                                                        .colorsValues['r']!,
+                                                    Incomechoices[index]
+                                                        .colorsValues['g']!,
+                                                    Incomechoices[index]
+                                                        .colorsValues['b']!,
+                                                    index);
+                                              },
                                               child: Center(
-                                        child: SelectCard(
-                                            choice: Incomechoices[index],
-                                            pageName: 'default'),
-                                      ))));
+                                                child: SelectCard(
+                                                    choice:
+                                                        Incomechoices[index],
+                                                    pageName: 'default'),
+                                              ))));
                                 }
                               }
                             }))),
@@ -425,17 +438,35 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
                               // Text Color (Foreground color)
                             ),
                             onPressed: () {
-                              provider.insertNewExpense(ExpenseModel(
-                                  expense_amount: num.parse(controller1.text),
-                                  categoery: category_ID,
-                                  date: selectedDate.toString(),
-                                  comment: controller2.text,
-                                  account_ID: provider.balances
-                                      .elementAt(provider.selectedbalance!)!
-                                      .account_ID));
-                              provider.setBackColor();
-                              Navigator.of(context)
-                                  .pushReplacementNamed('ExpensesScreen');
+                              if (controller1.text.isNotEmpty) {
+                                if (type == 'Expense') {
+                                  provider.insertNewExpense(ExpenseModel(
+                                      expense_amount:
+                                          num.parse(controller1.text),
+                                      categoery: category_ID,
+                                      date: selectedDate.toString(),
+                                      comment: controller2.text,
+                                      account_ID: provider.balances
+                                          .elementAt(provider.selectedbalance!)!
+                                          .account_ID));
+                                } else {
+                                  provider.insertNewIncome(IncomeModel(
+                                      income_amount:
+                                          num.parse(controller1.text),
+                                      categoery: category_ID,
+                                      date: selectedDate.toString(),
+                                      comment: controller2.text,
+                                      account_ID: provider.balances
+                                          .elementAt(provider.selectedbalance!)!
+                                          .account_ID));
+                                }
+                                log(category_ID.toString());
+                                provider.setBackColor();
+                                Navigator.of(context)
+                                    .pushReplacementNamed('ExpensesScreen');
+                              } else {
+                                // DialogExample('Error Empty Text Feild', 'check matter amount text feild').showCustomeDialog();
+                              }
                             },
                             child: Text(
                               'إضافة',

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 class IncomeModel {
   int? income_ID;
-  double? income_amount;
-  String? categoery;
+  num? income_amount;
+  int? categoery;
   late var date;
   String? comment;
   int? account_ID;
@@ -20,7 +20,7 @@ class IncomeModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'income_amount,': income_amount,
+      'income_Amount': income_amount,
       'categoery': categoery,
       'date': date,
       'comment': comment,
@@ -31,7 +31,7 @@ class IncomeModel {
   factory IncomeModel.fromMap(Map<String, dynamic> map) {
     return IncomeModel(
         income_ID: map['income_ID']?.toInt(),
-        income_amount: map['income_amount'],
+        income_amount: map['income_Amount'],
         categoery: map['categoery'],
         date: map['date'],
         comment:map['comment'],

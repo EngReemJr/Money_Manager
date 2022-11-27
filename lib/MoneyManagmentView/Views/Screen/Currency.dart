@@ -80,6 +80,7 @@ class _CurrencyState extends State<Currency> {
                 })),
         Center(
             child: Container(
+              margin: EdgeInsets.only(top: 47),
           width: 409.w,
           height: 89.h,
           decoration: BoxDecoration(

@@ -23,8 +23,8 @@ class ExpenseModel {
   
  
     return {
-      'expense_amount': expense_amount,
-      'categoery': categoery,
+      'expense_Amount': expense_amount,
+      'Categoery': categoery,
       'date': date,
       'comment': comment,
       'account_ID': account_ID

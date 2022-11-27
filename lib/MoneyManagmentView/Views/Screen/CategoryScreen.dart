@@ -69,7 +69,7 @@ class myPage extends StatelessWidget {
                   ));
             } else if ((index == 3 && type == 'Income')) {
               return Container();
-            } else {
+            } else  {
               return Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
@@ -94,8 +94,6 @@ class myPage extends StatelessWidget {
                               pageName: 'Main Income')),
                     ),
                   ));
-
-              ;
             }
           })),
     );

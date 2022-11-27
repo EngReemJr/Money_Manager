@@ -16,15 +16,15 @@ class StartScreen extends StatelessWidget {
         SizedBox(height: 135.h),
         Center(
           child: Container(
-            width: 218.w,
-            height: 223.h,
+            width: 300.w,
+            height: 300.h,
             decoration: BoxDecoration(
               //  borderRadius: BorderRadius.circular(109),
               color: Color.fromARGB(255, 249, 250, 244),
               image: DecorationImage(
                 image: AssetImage('image/DollarSign2.png'),
-                // fit: BoxFit.cover,
-                //scale: 1
+                
+                
               ),
             ),
           ),
@@ -33,7 +33,7 @@ class StartScreen extends StatelessWidget {
           height: 136.h,
         ),
         Text(
-          'مرحباً بك في مدير المال !',
+          ' ! مرحباً بك في مدير المال ',
           style: TextStyle(
             fontSize: 31,
             color: Color.fromARGB(255, 32, 126, 89),

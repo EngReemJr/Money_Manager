@@ -4,8 +4,10 @@ import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:helloworld/MoneyManagmentView/Views/Widgets/myChart.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/screenArgument.dart';
+import '../../providers/money_provider.dart';
 import '../Screen/CategoryScreen.dart';
 import '../Screen/Matters.dart';
 
@@ -92,64 +94,62 @@ class _ExpensesOrIncomeState extends State<ExpensesOrIncome>
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(27.0),
-        child: Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 20.h,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            bottom: TabBar(
-                indicatorColor: Color.fromARGB(255, 49, 134, 101),
-                labelStyle: const TextStyle(
-                  fontSize: 18.0,
-                  fontFamily: 'Noto Naskh Arabic',
-                ),
-                labelColor:
-                    Color.fromARGB(255, 49, 134, 101), //For Selected tab
-                unselectedLabelColor: Color.fromARGB(255, 123, 124, 116),
-                controller: MytabController,
-                tabs: [
-                  Tab(
-                    text: 'فترة',
+    return Consumer<MoneyProvider>(builder: (context, provider, x) {
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(27.0),
+          child: Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 1.h,
+              backgroundColor: Colors.white,
+              elevation: 0,
+              bottom: TabBar(
+                  indicatorColor: Color.fromARGB(255, 49, 134, 101),
+                  labelStyle: const TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'Noto Naskh Arabic',
                   ),
-                  Tab(
-                    text: 'سنة',
+                  labelColor:
+                      Color.fromARGB(255, 49, 134, 101), //For Selected tab
+                  unselectedLabelColor: Color.fromARGB(255, 123, 124, 116),
+                  controller: MytabController,
+                  tabs: [
+                    Tab(
+                      text: 'فترة',
+                    ),
+                    Tab(
+                      text: 'سنة',
+                    ),
+                    Tab(
+                      text: 'شهر',
+                    ),
+                    Tab(
+                      text: 'أسبوع',
+                    ),
+                    Tab(
+                      text: 'يوم',
+                    )
+                  ]),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.startDocked,
+            floatingActionButton: Padding(
+                padding: const EdgeInsets.only(bottom: 31.0),
+                child: FloatingActionButton(
+                  backgroundColor: Color.fromARGB(255, 253, 194, 42),
+                  onPressed: () {
+                    //Navigator.of(context).pushNamed('CategoryScreen');
+                    Navigator.of(context).pushReplacementNamed(
+                      'MattersScreen',
+                      arguments: ScreenArguments('', 0),
+                    );
+                  },
+                  child: Center(
+                    child: Text('+',
+                        style: TextStyle(color: Colors.black, fontSize: 28)),
                   ),
-                  Tab(
-                    text: 'شهر',
-                  ),
-                  Tab(
-                    text: 'أسبوع',
-                  ),
-                  Tab(
-                    text: 'يوم',
-                  )
-                ]),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.startDocked,
-          floatingActionButton: Padding(
-              padding: const EdgeInsets.only(bottom: 31.0),
-              child: FloatingActionButton(
-                backgroundColor: Color.fromARGB(255, 253, 194, 42),
-                onPressed: () {
-                  //Navigator.of(context).pushNamed('CategoryScreen');
-                  Navigator.of(context).pushReplacementNamed(
-
-                    'MattersScreen',
-                    arguments:ScreenArguments('',0),
-                    
-                    
-                   
-                   );
-                },
-                child: Center(
-                  child: Text('+',
-                      style: TextStyle(color: Colors.black, fontSize: 28)),
-                ),
-              )),
-          body: Container(height: 418.h, child: ChartApp(title!)),
-        ));
+                )),
+            body: Container(height: 418.h, child: ChartApp(title!)),
+          ));
+    });
   }
 }

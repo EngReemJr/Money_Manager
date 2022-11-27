@@ -12,7 +12,7 @@ class MattersBarScreen extends StatelessWidget with PreferredSizeWidget {
       child: Column(
         children: [
           SizedBox(
-            height: 70.h,
+            height: 80.h,
             child: Row(
               children: [
                 Expanded(child: Center()),
@@ -60,7 +60,7 @@ class MattersBarScreen extends StatelessWidget with PreferredSizeWidget {
           )
         ],
       ),
-      // height: 276.h,
+       //height: .h,
       decoration: const BoxDecoration(
           color: Color.fromARGB(255, 99, 159, 134),
           borderRadius: BorderRadius.only(
@@ -75,5 +75,5 @@ class MattersBarScreen extends StatelessWidget with PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size(double.infinity, 174.h);
+  Size get preferredSize => Size(double.infinity, 135.h);
 }

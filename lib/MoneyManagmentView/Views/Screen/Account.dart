@@ -113,8 +113,8 @@ class AccountScreen extends StatelessWidget {
                         total: int.parse(controller.text),
                         currency: currencyIndex));
                     provider.getAllBalances();
-                    log(provider.balances.length.toString());
-                    log(provider.selectedbalance.toString());
+                   // log(provider.balances.length.toString());
+                   // log(provider.selectedbalance.toString());
                     Navigator.of(context)
                         .pushReplacementNamed('ExpensesScreen');
                   },

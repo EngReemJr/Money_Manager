@@ -49,53 +49,64 @@ class _ExpensesScreenState extends State<ExpensesScreen>
           key: ExpensesScreen.key1, // set it here
           endDrawer: buildProfileDrawer(),
           appBar: customAppbar(),
-          body: 
-          Container(
-            height: 800.h,
-            child: 
-          
-          provider.expenses.isNotEmpty
-              ? 
-            Column(
-                children: [
-              Expanded(
-                 // height: 443.h,
-                  child:
-                      ListView.builder(
-                          itemCount: ExpensesScreen.tabController.index == 1
-                              ? provider.expenses
-                                  .where((element) =>
-                                      element.account_ID ==
-                                      provider.balances
-                                          .elementAt(provider.selectedbalance!)!
-                                          .account_ID!)
-                                  .length
-                              : provider.incomes
-                                  .where((element) =>
-                                      element.account_ID ==
-                                      provider.balances
-                                          .elementAt(provider.selectedbalance!)!
-                                          .account_ID)
-                                  .length,
-                          itemBuilder: (context, index) {
-
-                            return ViewData(
-                                'expenses',
-                                provider.expenses
-                                    .where((element) =>
-                                        element.account_ID ==
-                                        provider.balances
-                                            .elementAt(
-                                                provider.selectedbalance!)!
-                                            .account_ID)
-                                    .toList()[index]
-                                    .toMap()
-
-                                );
-                          }))
-               ]) :
-              SizedBox(child: Text('n')))
-    );});
+          body: Container(
+              height: 800.h,
+              child: provider.expenses.isNotEmpty || provider.incomes.isNotEmpty
+                  ? Column(children: [
+                      Expanded(
+                          // height: 443.h,
+                          child: ListView.builder(
+                              itemCount: ExpensesScreen.tabController.index == 1
+                                  ? provider.expenses
+                                      .where((element) =>
+                                          element.account_ID ==
+                                          provider.balances
+                                              .elementAt(
+                                                  provider.selectedbalance!)!
+                                              .account_ID!)
+                                      .length
+                                  : provider.incomes
+                                      .where((element) =>
+                                          element.account_ID ==
+                                          provider.balances
+                                              .elementAt(
+                                                  provider.selectedbalance!)!
+                                              .account_ID)
+                                      .length,
+                              itemBuilder: (context, index) {
+                               return (() {
+                                  if (ExpensesScreen.tabController.index == 1) {
+                                    return ViewData(
+                                        'expenses',
+                                        (provider.expenses
+                                                .where((element) =>
+                                                    element.account_ID ==
+                                                    provider.balances
+                                                        .elementAt(provider
+                                                            .selectedbalance!)!
+                                                        .account_ID)
+                                                .toList())[index]
+                                            .toMap());
+                                  } else {
+                                    return ViewData(
+                                        'incomes',
+                                        (provider.incomes
+                                                .where((element) =>
+                                                    element.account_ID ==
+                                                    provider.balances
+                                                        .elementAt(provider
+                                                            .selectedbalance!)!
+                                                        .account_ID)
+                                                .toList())[index]
+                                            .toMap());
+                                  }
+                                }());
+                              
+                              }))
+                    ])
+                  : SizedBox(child: Text(''))
+                  ));
+    });
   }
 }
 
@@ -112,12 +123,14 @@ buildProfileDrawer() {
           currentAccountPicture: CircleAvatar(
             backgroundImage: AssetImage('image/AvatarProfilePic.png'),
           ),
-          accountEmail: Text('Reem@gmail.com'), accountName: Text('Reem'),
+          accountEmail: Text('Reem@gmail.com', textAlign:TextAlign.end), accountName: Text('Reem'),
           // accountName: Text('Reem'),
         ),
         Expanded(
             child: ListTile(
-          title: Text('جدول'),
+                   title: Text('جدول',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.list),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -126,7 +139,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('حسابات'),
+        //  title: Text('حسابات'),
+            title: Text('حسابات',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.done),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -135,7 +151,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('الرسوم البيانية'),
+         // title: Text('الرسوم البيانية'),
+                             title: Text('الرسوم البيانية',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -144,7 +163,11 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('الفئات'),
+            
+            
+          title: Text('الفئات',textAlign: TextAlign.end),
+            iconColor: Colors.white,
+  textColor:Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -153,7 +176,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('المدفوعات الدورية'),
+         // title: Text('المدفوعات الدورية'),
+                             title: Text('المدفوعات الدورية',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -162,7 +188,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('تذكير'),
+        ///  title: Text('تذكير'),
+                             title: Text('تذكير',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -171,7 +200,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('عملة'),
+         // title: Text('عملة'),
+                             title: Text('عملة',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -180,7 +212,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('الإعدادات'),
+         // title: Text('الإعدادات'),
+                             title: Text('الإعدادات',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -189,7 +224,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('شارك مع الأصدقاء'),
+         // title: Text('شارك مع الأصدقاء'),
+                             title: Text('شارك مع الأصدقاء',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -198,7 +236,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('قيم التطبيق'),
+        //  title: Text('قيم التطبيق'),
+                             title: Text('قيم التطبيق',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -207,7 +248,10 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          title: Text('تواصل مع فريق الدعم'),
+                                 title: Text('تواصل مع فريق الدعم',textAlign: TextAlign.end),
+           iconColor: Colors.white,
+ textColor:Colors.white,
+        //  title: Text('تواصل مع فريق الدعم'),
           leading: Icon(Icons.cancel),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
@@ -217,4 +261,7 @@ buildProfileDrawer() {
       ],
     ),
   );
+  showList(){
+
+  }
 }

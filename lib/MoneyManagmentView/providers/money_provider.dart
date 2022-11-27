@@ -14,8 +14,15 @@ class MoneyProvider extends ChangeNotifier {
   List ExpenseColor = List<Map<String, int>>.filled(
       Expensechoices.length, {'r': 255, 'g': 255, 'b': 255},
       growable: true);
+  List IncomeColor = List<Map<String, int>>.filled(
+      Incomechoices.length, {'r': 255, 'g': 255, 'b': 255},
+      growable: true);
+
   late List<ChartData> expenseChartData;
+  late List<ChartData> incomeChartData;
+
   late double totalExpense = 0;
+  late double totalIncome = 0;
   MoneyProvider() {
     getAllBalances();
 
@@ -42,6 +49,15 @@ class MoneyProvider extends ChangeNotifier {
     ExpenseColor[index] = {'r': red, 'g': green, 'b': blue};
     notifyListeners();
   }
+   changeIncomeBackColor(int r, int g, int b, int index) {
+   IncomeColor = List<Map<String, int>>.filled(
+       Incomechoices.length, {'r': 255, 'g': 255, 'b': 255});
+   red = r;
+   green = g;
+   blue = b;
+   IncomeColor[index] = {'r': red, 'g': green, 'b': blue};
+   notifyListeners();
+ }
 
   setBackColor() {
     ExpenseColor = List<Map<String, int>>.filled(
@@ -83,7 +99,6 @@ class MoneyProvider extends ChangeNotifier {
         .forEach((element) {
       totalExpense = totalExpense + element.expense_amount;
     });
-    log(totalExpense.toString());
     expenseChartData = expenses
         .where((element) =>
             element.account_ID ==
@@ -113,6 +128,61 @@ class MoneyProvider extends ChangeNotifier {
   insertNewBalance(BalanceModel balanceModel) async {
     await DbHelper.dbHelper.insertNewRow(balanceModel, 'balance');
     getAllBalances();
+  }
+
+  getExpensePercent(num amount) {
+    getExpenseChart();
+    return (amount / totalExpense * 100).toInt();
+  }
+
+  getIncomePercent(num amount) {
+    getIncomeChart();
+    return (amount / totalIncome * 100).toInt();
+  }
+
+  List<ChartData> getIncomeChart() {
+    totalIncome = 0;
+    incomes
+        .where((element) =>
+            element.account_ID ==
+            balances.elementAt(selectedbalance!)!.account_ID!)
+        .toList()
+        .forEach((element) {
+      totalIncome = totalIncome + element.income_amount;
+    });
+    incomeChartData = incomes
+        .where((element) =>
+            element.account_ID ==
+            balances.elementAt(selectedbalance!)!.account_ID!)
+        .map((e) {
+      return ChartData(
+          '',
+          e.income_amount,
+          Color.fromARGB(
+              
+              255,
+              Incomechoices[e.categoery].colorsValues['r']!,
+              
+               Incomechoices[e.categoery].colorsValues['g']!,
+              
+               Incomechoices[e.categoery].colorsValues['b']!
+              ));
+    }).toList();
+
+    // notifyListeners();
+    return incomeChartData;
+  }
+
+  insertNewIncome(IncomeModel incomeModel) async {
+    await DbHelper.dbHelper.insertNewRow(incomeModel, 'income');
+    num newValue = (balances.elementAt(selectedbalance!)!.total! +
+        incomeModel.income_amount!);
+    updateBalance(balances.elementAt(selectedbalance!)!, newValue);
+    getAllIncomes();
+    getAllBalances();
+    getIncomeChart();
+    setSelectedBalance(balances.length - 1);
+    log(incomeModel.categoery.toString());
   }
 
   insertNewExpense(ExpenseModel expenseModel) async {
