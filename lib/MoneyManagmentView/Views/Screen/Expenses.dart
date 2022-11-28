@@ -28,9 +28,14 @@ class _ExpensesScreenState extends State<ExpensesScreen>
     ExpensesScreen.tabController = TabController(length: 2, vsync: this);
     ExpensesScreen.tabController.index = 1;
     ExpensesScreen.tabController.addListener(() {
-      Provider.of<MoneyProvider>(context, listen: false)
-          .changeMyTabIndex(ExpensesScreen.tabController.index);
+      makeDelay();
     });
+  }
+
+  makeDelay() async {
+    await Future.delayed(Duration(seconds: 1));
+    Provider.of<MoneyProvider>(context, listen: false)
+        .changeMyTabIndex(ExpensesScreen.tabController.index);
   }
 
   void initState() {
@@ -79,8 +84,8 @@ class _ExpensesScreenState extends State<ExpensesScreen>
                                       .length,
                               itemBuilder: (context, index) {
                                 return (() {
-                                  // log(ExpensesScreen.tabController.index
-                                  //   .toString());
+                                
+                                
                                   if (Provider.of<MoneyProvider>(context,
                                               listen: false)
                                           .myTabIndex ==
@@ -97,8 +102,6 @@ class _ExpensesScreenState extends State<ExpensesScreen>
                                                 .toList())[index]
                                             .toMap());
                                   } else {
-                                    log(provider.incomes.length.toString()+' list length');
-                                   log(provider.selectedbalance.toString()+' selected balance');
 
                                     return ViewData(
                                         'incomes',
@@ -135,7 +138,7 @@ buildProfileDrawer() {
           ),
           accountEmail: Text('Reem@gmail.com', textAlign: TextAlign.end),
           accountName: Text('Reem'),
-          // accountName: Text('Reem'),
+         
         ),
         Expanded(
             child: ListTile(
@@ -166,7 +169,7 @@ buildProfileDrawer() {
           title: Text('الرسوم البيانية', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          leading: Icon(Icons.cancel),
+         leading: Icon(Icons.done),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -177,7 +180,7 @@ buildProfileDrawer() {
           title: Text('الفئات', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          leading: Icon(Icons.cancel),
+          leading: Icon(Icons.list),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -189,7 +192,7 @@ buildProfileDrawer() {
           title: Text('المدفوعات الدورية', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          leading: Icon(Icons.cancel),
+          leading: Icon(Icons.payment),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -197,11 +200,11 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          ///  title: Text('تذكير'),
+         
           title: Text('تذكير', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          leading: Icon(Icons.cancel),
+          leading: Icon(Icons.notification_add),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -209,11 +212,11 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          // title: Text('عملة'),
+         
           title: Text('عملة', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          leading: Icon(Icons.cancel),
+          leading: Icon(Icons.currency_exchange),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -221,11 +224,11 @@ buildProfileDrawer() {
         )),
         Expanded(
             child: ListTile(
-          // title: Text('الإعدادات'),
+          
           title: Text('الإعدادات', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          leading: Icon(Icons.cancel),
+          leading: Icon(Icons.settings),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -237,7 +240,7 @@ buildProfileDrawer() {
           title: Text('شارك مع الأصدقاء', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          leading: Icon(Icons.cancel),
+          leading: Icon(Icons.share),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -249,7 +252,7 @@ buildProfileDrawer() {
           title: Text('قيم التطبيق', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          leading: Icon(Icons.cancel),
+          leading: Icon(Icons.star),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -260,8 +263,8 @@ buildProfileDrawer() {
           title: Text('تواصل مع فريق الدعم', textAlign: TextAlign.end),
           iconColor: Colors.white,
           textColor: Colors.white,
-          //  title: Text('تواصل مع فريق الدعم'),
-          leading: Icon(Icons.cancel),
+         
+          leading: Icon(Icons.contact_mail),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             ExpensesScreen.tabController.animateTo(2);
@@ -270,5 +273,5 @@ buildProfileDrawer() {
       ],
     ),
   );
-  showList() {}
+  
 }

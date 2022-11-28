@@ -439,7 +439,10 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
                             ),
                             onPressed: () {
                               if (controller1.text.isNotEmpty) {
-                                if (type == 'Expense') {
+                                if (Provider.of<MoneyProvider>(context,
+                                            listen: false)
+                                        .myTabIndex ==
+                                    1) {
                                   provider.insertNewExpense(ExpenseModel(
                                       expense_amount:
                                           num.parse(controller1.text),
@@ -460,7 +463,7 @@ class _NewExpenseOrIncomeState extends State<NewExpenseOrIncome> {
                                           .elementAt(provider.selectedbalance!)!
                                           .account_ID));
                                 }
-                                // log(category_ID.toString());
+                                provider.getAllExpenses();
                                 provider.getAllIncomes();
                                 provider.setBackColor();
                                 Navigator.of(context)

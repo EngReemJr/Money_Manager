@@ -68,16 +68,6 @@ class _customAppbarState extends State<customAppbar>
                                         .symbol
                                 :
                                  'الإجمالي\n' 
-                                 //+
-                                //    provider.balances
-                                //     .elementAt(0)
-                                //    .total!
-                                //    .toString() +
-                                // currency[provider.balances
-                                //  .elementAt(
-                                //   provider.selectedbalance!)!
-                                // .currency!]
-                                // .symbol
                                 ,
                                 style: TextStyle(
                                   fontSize: 24,

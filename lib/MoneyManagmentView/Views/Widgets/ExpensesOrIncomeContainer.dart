@@ -173,7 +173,7 @@ Row(children: [Expanded(child: SizedBox()),
 Row(children: [Expanded(child: SizedBox()),
   Center(child: Text(DateTime.now().month!.toString() +
      '/' +
-    DateTime.now().day!.toString()+'اليوم,')),
+    DateTime.now().day!.toString()+',اليوم ')),
     Expanded(child: SizedBox()),IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))],)
  ])),
               Container(height: 418.h, child: ChartApp(title!))

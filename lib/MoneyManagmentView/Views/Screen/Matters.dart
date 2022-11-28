@@ -8,8 +8,10 @@ import 'package:helloworld/MoneyManagmentView/Views/Screen/calculater.dart';
 import 'package:helloworld/MoneyManagmentView/Views/Widgets/NewExpenseOrIncome.dart';
 import 'package:helloworld/MoneyManagmentView/models/CategoriesChoice.dart';
 import 'package:helloworld/MoneyManagmentView/models/screenArgument.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/Categories.dart';
+import '../../providers/money_provider.dart';
 import '../Widgets/MattersCustomeBar.dart';
 import '../Widgets/SelectCategory.dart';
 import 'Expenses.dart';
@@ -26,6 +28,13 @@ class _MattersScreenState extends State<MattersScreen>
   initalizeTabController() {
     MattersScreen.tabController = TabController(length: 2, vsync: this);
     MattersScreen.tabController.index = 1;
+        MattersScreen.tabController.addListener(() {
+           Provider.of<MoneyProvider>(context, listen: false)
+     .changeMyTabIndex(MattersScreen.tabController.index);
+     
+    });
+
+  
   }
 
   void initState() {

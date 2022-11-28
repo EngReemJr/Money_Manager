@@ -22,7 +22,6 @@ class _SplashscreenState extends State<Splashscreen> {
     makeDelay();
   }
   navigateUser() async{
-  //  Provider.of<MoneyProvider>(context, listen: false).getAllBalances();
     bool isFirstTime = FileHelper.getFirstTime();
   
     if (isFirstTime) {
