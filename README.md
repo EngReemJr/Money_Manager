@@ -4,6 +4,7 @@ A new Flutter project created with https://flutlab.io
 Flutter Application for android and ios system used for managment personal expenses and incomes and check it every week-month-year by view it as chart
 
 This project is a starting point for a Flutter application.
+I will view my App screenshots 
 ## Getting Started
 
 ![الشاشة الأولى](https://user-images.githubusercontent.com/59801925/206495228-a99acc37-2fa1-428a-ba14-f4de465c62ae.PNG)
